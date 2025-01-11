@@ -21,35 +21,36 @@ class Student:
         else:
             return 'Ошибка'
 
-    def mid_grade(self, grades):
+    def mid_grade(self):
         mid_grade_coll = []
-        for grade in grades.values():
-            mid_grade_coll += sum(grade) / len(grade)
-        return round(sum(mid_grade_coll) / len(mid_grade_coll), 1)
+        for grade in self.grades.values():
+            mid_grade_coll.append(sum(grade) / len(grade))
+        return round(sum(mid_grade_coll) / len(mid_grade_coll), 1) if mid_grade_coll else 0
 
     def __eq__(self, other):
-        return self.mid_grade == other.mid_grade
+        return self.mid_grade() == other.mid_grade()
 
     def __lt__(self, other):
-        return self.mid_grade < other.mid_grade
+        return self.mid_grade() < other.mid_grade()
 
     def __le__(self, other):
-        return self.mid_grade <= other.mid_grade
+        return self.mid_grade() <= other.mid_grade()
 
     def __ne__(self, other):
-        return self.mid_grade != other.mid_grade
+        return self.mid_grade() != other.mid_grade()
 
     def __gt__(self, other):
-        return self.mid_grade > other.mid_grade
+        return self.mid_grade() > other.mid_grade()
 
     def __ge__(self, other):
-        return self.mid_grade >= other.mid_grade
+        return self.mid_grade() >= other.mid_grade()
 
     def __str__(self):
-        return (f'Имя: {self.name} /nФамилия: {self.surname} '
-                f'Средняя оценка за домашние задания: {self.mid_grade}'
-                f'Курсы в процессе изучения: {self.courses_in_progress}'
-                f'Завершённые курсы: {self.finished_courses}')
+        return (f'Имя: {self.name}\n'
+                f'Фамилия: {self.surname}\n'
+                f'Средняя оценка за домашние задания: {self.mid_grade()}\n'
+                f'Курсы в процессе изучения: {", ".join(self.courses_in_progress)}\n'
+                f'Завершённые курсы: {", ".join(self.finished_courses)}')
 
 
 class Mentor:
@@ -65,32 +66,34 @@ class Lecturer(Mentor):
         self.grades = {}
         super().__init__(name, surname)
 
-    def mid_grade(self, grades):
+    def mid_grade(self):
         mid_grade_coll = []
-        for grade in grades.values():
-            mid_grade_coll += sum(grade) / len(grade)
-        return round(sum(mid_grade_coll) / len(mid_grade_coll), 1)
+        for grade in self.grades.values():
+            mid_grade_coll.append(sum(grade) / len(grade))
+        return round(sum(mid_grade_coll) / len(mid_grade_coll), 1) if mid_grade_coll else 0
 
     def __eq__(self, other):
-        return self.mid_grade == other.mid_grade
+        return self.mid_grade() == other.mid_grade()
 
     def __lt__(self, other):
-        return self.mid_grade < other.mid_grade
+        return self.mid_grade() < other.mid_grade()
 
     def __le__(self, other):
-        return self.mid_grade <= other.mid_grade
+        return self.mid_grade() <= other.mid_grade()
 
     def __ne__(self, other):
-        return self.mid_grade != other.mid_grade
+        return self.mid_grade() != other.mid_grade()
 
     def __gt__(self, other):
-        return self.mid_grade > other.mid_grade
+        return self.mid_grade() > other.mid_grade()
 
     def __ge__(self, other):
-        return self.mid_grade >= other.mid_grade
+        return self.mid_grade() >= other.mid_grade()
 
     def __str__(self):
-        return f'Имя: {self.name} /nФамилия: {self.surname} /nСредняя оценка за лекции: {self.mid_grade}'
+        return (f'Имя: {self.name}\n'
+                f'Фамилия: {self.surname}\n'
+                f'Средняя оценка за лекции: {self.mid_grade()}')
 
 class Reviewer(Mentor):
     def __init__(self, name, surname):
@@ -106,8 +109,9 @@ class Reviewer(Mentor):
                 student.grades[course] = [grade]
         else:
             return 'Ошибка'
+
     def __str__(self):
-        return f'Имя: {self.name} /nФамилия: {self.surname}'
+        return f'Имя: {self.name}\nФамилия: {self.surname}'
 
 
 
@@ -132,8 +136,8 @@ best_student.rate_lr(cool_lecturer, 'Python', 9)
 some_student.rate_lr(cool_lecturer, 'Java', 7)
 some_student.rate_lr(cool_lecturer, 'Java', 6)
 
-print(best_student.mid_grade)
-print(some_student.mid_grade)
+print(best_student.mid_grade())
+print(some_student.mid_grade())
 
 print(best_student)
 print(some_student)
